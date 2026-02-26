@@ -1,0 +1,36 @@
+{
+  "name": "mcp-tencent-git",
+  "version": "1.0.0",
+  "description": "",
+  "main": "build/index.js",
+  "type": "module",
+  "bin": {
+    "mcp-tencent-git": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "npx tsc && npx esbuild build/index.js --bundle --platform=node --format=esm --outfile=dist/index.js --banner:js=\"#!/usr/bin/env node\" --external:node:*",
+    "dev": "tsc --watch"
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "mcp",
+    "tencent",
+    "git",
+    "tgit",
+    "工蜂",
+    "code-review",
+    "merge-request"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^22.19.2",
+    "esbuild": "^0.27.3",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.24.3"
+  }
+}
