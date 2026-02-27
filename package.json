@@ -8,7 +8,7 @@
     "mcp-tencent-git": "./dist/index.js"
   },
   "scripts": {
-    "build": "npx tsc && npx esbuild build/index.js --bundle --platform=node --format=esm --outfile=dist/index.js --banner:js=\"#!/usr/bin/env node\" --external:node:*",
+    "build": "node -e \"import('node:fs').then(fs=>{fs.rmSync('build',{recursive:true,force:true});fs.rmSync('dist',{recursive:true,force:true});})\" && npx tsc && npx esbuild build/index.js --bundle --platform=node --format=esm --outfile=dist/index.js --banner:js=\"#!/usr/bin/env node\" --external:node:*",
     "dev": "tsc --watch"
   },
   "files": [

@@ -3,12 +3,12 @@
  *
  * Provides tools for:
  * - Branch management (create, delete, list, protect)
- * - Commit operations (list, get, diff, comments)
+ * - Commit operations (aggregated)
  * - Repository operations (tree, files CRUD, compare)
  * - Merge requests (create, update, merge, review)
- * - Code reviews (Commit Review)
- * - MR reviews
- * - Comments (MR notes, review notes, issue notes)
+ * - Code reviews (Commit Review, aggregated)
+ * - MR reviews (aggregated)
+ * - Comments (aggregated)
  *
  * Environment variables:
  * - TENCENT_GIT_TOKEN: Private token for authentication (required)
@@ -16,14 +16,8 @@
  */
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
-import { registerBranchTools } from "./tools/branch.js";
-import { registerCommitTools } from "./tools/commit.js";
-import { registerRepositoryTools } from "./tools/repository.js";
-import { registerMergeRequestTools } from "./tools/merge-request.js";
-import { registerCodeReviewTools } from "./tools/code-review.js";
-import { registerMrReviewTools } from "./tools/mr-review.js";
-import { registerCommentTools } from "./tools/comment.js";
-import { registerProjectTools } from "./tools/project.js";
+import { registerCoreTools } from "./tools/core/index.js";
+import { registerExtensionTools } from "./tools/extensions/index.js";
 
 // Create server instance
 const server = new McpServer({
@@ -33,14 +27,8 @@ const server = new McpServer({
 });
 
 // Register all tool groups
-registerProjectTools(server);
-registerBranchTools(server);
-registerCommitTools(server);
-registerRepositoryTools(server);
-registerMergeRequestTools(server);
-registerCodeReviewTools(server);
-registerMrReviewTools(server);
-registerCommentTools(server);
+registerCoreTools(server);
+registerExtensionTools(server);
 
 // Start the server
 async function main() {
