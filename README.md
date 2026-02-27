@@ -4,68 +4,21 @@
 
 提供对腾讯工蜂 Git 平台的全面操作能力，包括分支管理、提交操作、版本库文件管理、合并请求、代码评审等功能。
 
-## 功能特性
-
-默认启用 **紧凑核心工具模式（Compact Core Tools）**，将高频核心域合并为更少的工具，降低模型选错工具和上下文开销：
-
-- `manage_projects` - 项目管理聚合（`search` / `get`）
-- `manage_branches` - 分支管理聚合（`list` / `get` / `create` / `delete` / `protect` / `unprotect` / `get_protect` / `lifecycle` / `list_protected_members` / `add_protected_member` / `update_protected_member` / `remove_protected_member`）
-- `manage_repository` - 仓库管理聚合（`list_tree` / `get_file` / `create_file` / `update_file` / `delete_file` / `compare` / `archive` / `get_blob_raw` / `compare_changed_files`）
-- `manage_merge_requests` - MR 管理聚合（`list` / `get` / `summary` / `file_diff` / `create` / `update` / `merge` / `changes` / `commits` / `changed_files` / `subscribe_status` / `subscribe` / `unsubscribe` / `list_comments` / `create_comment`）
-- `manage_commits` - 提交管理聚合（`list` / `get` / `diff` / `list_comments` / `create_comment` / `refs`）
-- `manage_code_reviews` - 代码评审聚合（`create` / `list` / `get` / `update` / `invite_reviewer` / `remove_reviewer` / `submit` / `reopen` / `changed_files`）
-- `manage_mr_reviews` - MR 评审聚合（`get`=摘要 / `get_detail`=明细 / `invite_reviewer` / `remove_reviewer` / `cancel` / `submit` / `reopen`）
-- `manage_comments` - 评论聚合（`target_type=merge_request/review/issue` + `action=list/get/create/update`）
-
-源码目录已重构为分层结构，便于后续扩展：
-
-```text
-src/
-  api-client.ts
-  index.ts
-  tools/
-    core/
-      index.ts
-    extensions/
-      commit.ts
-      code-review.ts
-      mr-review.ts
-      comment.ts
-      index.ts
-```
-
-### 🔀 分支管理
-- `manage_branches` - 分支聚合工具（通过 `action` 路由）
-
-### 📝 提交操作
-- `manage_commits` - 提交聚合工具（通过 `action` 路由）
-
-### 📁 版本库管理
-- `manage_repository` - 仓库聚合工具（通过 `action` 路由）
-
-### 🔄 合并请求 (MR)
-- `manage_merge_requests` - MR 聚合工具（通过 `action` 路由）
-
-### 🧭 项目管理
-- `manage_projects` - 项目聚合工具（`search` / `get`）
-
-### 🔍 代码评审 (Commit Review)
-- `manage_code_reviews` - 代码评审聚合工具（通过 `action` 路由）
-
-### 📋 MR 评审
-- `manage_mr_reviews` - MR 评审聚合工具（通过 `action` 路由）
-
-### 💬 评论管理
-- `manage_comments` - 评论聚合工具（通过 `target_type` + `action` 路由）
+> **开发者请注意**：如果您希望参与开发或了解项目架构，请参阅 [开发者文档 (DEVELOPING.md)](DEVELOPING.md)。
 
 ## 安装
 
+可以直接通过 npm 安装：
+
 ```bash
-npm install
-npm run build
+npm install -g @puiching-memory/mcp-tencent-git
 ```
 
-构建后 `dist/index.js` 是一个包含所有依赖的单文件，部署时只需复制该文件，无需 `node_modules`。
+或者使用 `npx` 直接运行：
+
+```bash
+npx @tencent-git/mcp-tencent-git
+```
 
 ## 配置
 
@@ -154,17 +107,6 @@ Private Token 可以在工蜂个人设置中获取：`https://git.code.tencent.c
 API 中的 `project_id` 参数支持两种格式：
 - **数字 ID**：如 `12345`
 - **命名空间路径**：如 `namespace/project`（会自动进行 URL 编码）
-
-## API 文档参考
-
-- [使用前必读](https://code.tencent.com/help/api/prepare)
-- [提交相关](https://code.tencent.com/help/api/commit)
-- [代码评审](https://code.tencent.com/help/api/code_review)
-- [版本库](https://code.tencent.com/help/api/repository)
-- [分支管理](https://code.tencent.com/help/api/branch)
-- [合并请求](https://code.tencent.com/help/api/mergeRequest)
-- [评论](https://code.tencent.com/help/api/comment)
-- [MR评审](https://code.tencent.com/help/api/mr_review)
 
 ## License
 
