@@ -30,7 +30,7 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Sync package version with release tag
+      - name: Validate release tag version
         shell: bash
         run: |
           TAG="${GITHUB_REF_NAME#v}"
@@ -40,9 +40,14 @@ jobs:
           elif [[ "${TAG}" =~ ^([0-9]+)\.([0-9]+)$ ]]; then
             VERSION="${BASH_REMATCH[1]}.${BASH_REMATCH[2]}.0"
           fi
+          CURRENT_VERSION=$(node -p "require('./package.json').version")
           echo "Release tag: ${GITHUB_REF_NAME}"
-          echo "Publish version: ${VERSION}"
-          npm version "${VERSION}" --no-git-tag-version
+          echo "Expected package.json version: ${VERSION}"
+          echo "Current package.json version: ${CURRENT_VERSION}"
+          if [[ "${CURRENT_VERSION}" != "${VERSION}" ]]; then
+            echo "::error::package.json version (${CURRENT_VERSION}) does not match release tag (${VERSION})"
+            exit 1
+          fi
 
       - name: Select npm publish auth mode
         id: npm_auth
