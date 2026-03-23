@@ -11,13 +11,13 @@
 可以直接通过 npm 安装：
 
 ```bash
-npm install -g @puiching-memory/mcp-tencent-git
+npm install -g mcp-tencent-git
 ```
 
 或者使用 `npx` 直接运行：
 
 ```bash
-npx @tencent-git/mcp-tencent-git
+npx mcp-tencent-git
 ```
 
 ## 配置
